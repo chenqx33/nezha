@@ -25,7 +25,7 @@ import (
 	"github.com/nezhahq/nezha/model"
 	"github.com/nezhahq/nezha/pkg/utils"
 	"github.com/nezhahq/nezha/proto"
-	"github.com/chenqx33/nezha/service/singleton"
+	"github.com/nezhahq/nezha/service/singleton"
 )
 
 type DashboardCliParam struct {
@@ -66,7 +66,7 @@ func initSystem(bus chan<- *model.Service) error {
 	}
 
 	// 每天的3:30 对 监控记录 和 流量记录 进行清理
-	if _, err := singleton.CronShared.AddFunc("0 30 3 * * *", singleton.CleanServiceHistory); err != nil {
+	if _, err := singleton.CronShared.AddFunc("0 30 3 * * 3", singleton.CleanServiceHistory); err != nil {
 		return err
 	}
 
@@ -124,7 +124,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	singleton.CleanServiceHistory()
+	// singleton.CleanServiceHistory()
 	rpc.DispatchKeepalive()
 	go rpc.DispatchTask(serviceSentinelDispatchBus)
 	go singleton.AlertSentinelStart()

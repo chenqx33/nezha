@@ -66,7 +66,7 @@ func initSystem(bus chan<- *model.Service) error {
 	}
 
 	// 每天的3:30 对 监控记录 和 流量记录 进行清理
-	if _, err := singleton.CronShared.AddFunc("0 30 3 * * *", singleton.CleanServiceHistory); err != nil {
+	if _, err := singleton.CronShared.AddFunc("0 30 3 * * 1", singleton.CleanServiceHistory); err != nil {
 		return err
 	}
 

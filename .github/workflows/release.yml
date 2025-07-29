@@ -12,13 +12,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        goos: [linux, windows]
+        goos: [linux]
         goarch: [amd64]
-        include:
-          - goos: linux
-            goarch: s390x
-          - goos: linux
-            goarch: arm64
 
     name: Build artifacts
     runs-on: ubuntu-latest

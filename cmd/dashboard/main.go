@@ -25,7 +25,7 @@ import (
 	"github.com/nezhahq/nezha/model"
 	"github.com/nezhahq/nezha/pkg/utils"
 	"github.com/nezhahq/nezha/proto"
-	"github.com/nezhahq/nezha/service/singleton"
+	"github.com/chenqx33/nezha/service/singleton"
 )
 
 type DashboardCliParam struct {

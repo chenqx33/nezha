@@ -98,7 +98,7 @@ func listServiceHistory(c *gin.Context) ([]*model.ServiceInfos, error) {
 
 	var serviceHistories []*model.ServiceHistory
 	if err := singleton.DB.Model(&model.ServiceHistory{}).Select("service_id, created_at, server_id, avg_delay").
-		Where("server_id = ?", id).Where("created_at >= ?", time.Now().Add(-24*time.Hour)).Order("service_id, created_at").
+		Where("server_id = ?", id).Where("created_at >= ?", time.Now().Add(7*-24*time.Hour)).Order("service_id, created_at").
 		Scan(&serviceHistories).Error; err != nil {
 		return nil, err
 	}

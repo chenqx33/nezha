@@ -42,6 +42,7 @@ var (
 
 func initSystem(bus chan<- *model.Service) error {
 	// 初始化管理员账户
+	fmt.Println("init system start")
 	var usersCount int64
 	if err := singleton.DB.Model(&model.User{}).Count(&usersCount).Error; err != nil {
 		return err
@@ -74,6 +75,7 @@ func initSystem(bus chan<- *model.Service) error {
 	if _, err := singleton.CronShared.AddFunc("0 * * * *", func() { singleton.RecordTransferHourlyUsage() }); err != nil {
 		return err
 	}
+	fmt.Println("init system end")
 	return nil
 }
 
@@ -106,6 +108,7 @@ func main() {
 
 	if dashboardCliParam.Version {
 		fmt.Println(singleton.Version)
+		fmt.Println("print dashboardCliParam.Version end")
 		os.Exit(0)
 	}
 
@@ -124,7 +127,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// singleton.CleanServiceHistory()
+	singleton.CleanServiceHistory()
+	fmt.Println("clean end")
 	rpc.DispatchKeepalive()
 	go rpc.DispatchTask(serviceSentinelDispatchBus)
 	go singleton.AlertSentinelStart()
